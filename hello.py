@@ -104,3 +104,4 @@ with app.test_request_context():
     print(url_for('login'))#ne fonctionne pas si 2 routes "/login" existent (GET et POST)
     print(url_for('login', next='/'))#ne fonctionne pas si 2 routes "/login" existent (GET et POST)
     print(url_for('profile', username='John Doe'))
+    print(url_for('static', filename='css/style.css'))#résolution dynamique du chemin vers le fichier /static/css/style.css
