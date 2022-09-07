@@ -1,5 +1,6 @@
 from flask import Flask
 from markupsafe import escape
+from flask import url_for
 
 app = Flask(__name__)
 
@@ -34,3 +35,26 @@ def projects():
 @app.route('/about')
 def about():
     return 'The about page'
+
+@app.route('/')
+def index():
+    return 'index'
+
+@app.route('/login')
+def login():
+    return 'login'
+
+@app.route('/user/<username>')
+def profile(username):
+    return f'{username}\'s profile'
+
+#permet d'afficher directement les données dans la console, au lancement de l'application (utile pour des tests)
+with app.test_request_context():
+    """
+    affichage des adresses absolues des différentes méthodes utilisées dans l'application
+    il est préférable d'utiliser url_for pour générer des liens plutôt que d'écrire les liens "en dur"
+    """
+    print(url_for('index'))
+    print(url_for('login'))
+    print(url_for('login', next='/'))
+    print(url_for('profile', username='John Doe'))
