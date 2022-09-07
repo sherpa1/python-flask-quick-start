@@ -61,3 +61,11 @@ La commande ci-dessus est fonctionnelle uniquement si le fichier principal de l'
 Sinon adapter la commande en remplaçant <hello> par le nom du fichier (sans l'extension .py)
 
 L'application est (normalement) consultable sur http://localhost:5000
+
+## Activation du mode Debug et du hot restart
+
+``
+flask --app hello --debug run
+``
+
+Le code PIN fourni dans la console Python permet d'exécuter du code directement dans la page du navigateur.
