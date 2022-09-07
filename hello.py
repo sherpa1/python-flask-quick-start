@@ -1,6 +1,8 @@
 from flask import Flask
 from markupsafe import escape
 from flask import url_for
+from flask import request
+
 
 app = Flask(__name__)
 
@@ -40,13 +42,57 @@ def about():
 def index():
     return 'index'
 
-@app.route('/login')
-def login():
-    return 'login'
-
 @app.route('/user/<username>')
 def profile(username):
     return f'{username}\'s profile'
+
+
+def show_the_login_form():
+    """
+    permet d'afficher un formulaire HTML
+    """
+    return """
+    <form method="POST" action="/login">
+        <label for="login">Login</label>
+        <input type="text" name="login"/>
+        <label for="pwd">Password</label>
+        <input type="password" name="pwd"/>
+        <input type="submit" value="submit">
+    </form>
+    """
+    
+def do_the_login():
+    return """
+    <p>Connexion</p>
+    """
+
+# @app.get('/login')
+# def login_get():
+#     return show_the_login_form()    
+
+# @app.post('/login')
+# def login_post():
+#     return do_the_login()
+
+#Les 2 méthodes ci-dessus (gestion de GET et POST dans 2 routes séparées)
+#équivalent à la méthode ci-dessous (gestion de GEST et POST dans une route unique)
+#
+#2 routes différentes pour 2 méthodes HTTP différentes
+# @app.get('/login')
+# def login_get():
+#     return show_the_login_form()    
+
+# @app.post('/login')
+# def login_post():
+#     return do_the_login()
+
+#1 route unique pour 2 méthodes HTTP différentes
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return do_the_login()
+    else:
+        return show_the_login_form()
 
 #permet d'afficher directement les données dans la console, au lancement de l'application (utile pour des tests)
 with app.test_request_context():
@@ -55,6 +101,6 @@ with app.test_request_context():
     il est préférable d'utiliser url_for pour générer des liens plutôt que d'écrire les liens "en dur"
     """
     print(url_for('index'))
-    print(url_for('login'))
-    print(url_for('login', next='/'))
+    print(url_for('login'))#ne fonctionne pas si 2 routes "/login" existent (GET et POST)
+    print(url_for('login', next='/'))#ne fonctionne pas si 2 routes "/login" existent (GET et POST)
     print(url_for('profile', username='John Doe'))
