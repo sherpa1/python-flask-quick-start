@@ -4,6 +4,8 @@ from flask import url_for
 from flask import request
 from flask import render_template
 from flask import request
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 
@@ -132,6 +134,17 @@ def login():
 @app.route('/hello/<name>')
 def hello(name=None):
     return render_template('hello.html', name=name)
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        print("TEST")
+        f = request.files['the_file']
+        #f.save('/var/www/uploads/uploaded_file.txt')
+        f.save(f"./uploads/{secure_filename(f.filename)}")#upload le fichier dans le dossier local "uploads"
+        return "Fichier uploadé"
+    elif request.method == "GET":
+        return render_template("upload.html")
 
 #permet d'afficher directement les données dans la console, au lancement de l'application (utile pour des tests)
 with app.test_request_context():
