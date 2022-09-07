@@ -1,4 +1,4 @@
-# Minimal App
+# Flask Framework Quickstart
 
 Application réalisée avec Flask Framework sur la base de la documentation officielle https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application
 

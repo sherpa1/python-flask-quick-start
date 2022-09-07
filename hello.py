@@ -4,6 +4,7 @@ from flask import url_for
 from flask import request
 from flask import render_template
 from flask import request
+from flask import make_response
 from werkzeug.utils import secure_filename
 
 
@@ -43,6 +44,16 @@ def about():
 
 @app.route('/')
 def index():
+    username = request.cookies.get('username')
+    # use cookies.get(key) instead of cookies[key] to not get a
+    # KeyError if the cookie is missing.
+    resp = make_response(render_template('index.html'))#il est nécessaire d'utiliser la méthode make_response pour pouvoir retourner la vue et créer le cookie
+    resp.set_cookie('username', 'the username')
+    #Dans Google Chrome, vous pouvez vérifiez la présence du cookie username 
+    # "Plus d'outils / Outils de développement / Appli / Cookies / http://localhost:5000" 
+    return resp
+    
+    
     search = request.args.get('search')
     
     #acces aux paramètres renseignés dans l'URL. 
