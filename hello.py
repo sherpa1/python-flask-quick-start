@@ -5,6 +5,9 @@ from flask import request
 from flask import render_template
 from flask import request
 from flask import make_response
+from flask import abort, redirect, url_for
+from flask import json
+
 from werkzeug.utils import secure_filename
 
 
@@ -42,6 +45,18 @@ def projects():
 def about():
     return 'The about page'
 
+#Tester l'accès à http://localhost:5000/a-private-page
+#qui doit rediriger vers /login
+@app.route('/a-private-page')
+def a_private_page():
+    return redirect(url_for('login'))
+
+#affiche une erreur 401 "Unauthorized"
+@app.route('/a-401-page')
+def forbidden():
+    abort(401)
+    this_is_never_executed()
+
 @app.route('/')
 def index():
     username = request.cookies.get('username')
@@ -53,18 +68,19 @@ def index():
     # "Plus d'outils / Outils de développement / Appli / Cookies / http://localhost:5000" 
     return resp
     
+# @app.route('/')
+# def index():
+#     search = request.args.get('search')
     
-    search = request.args.get('search')
+#     #acces aux paramètres renseignés dans l'URL. 
+#     #Dans l'exemple http://localhost:5000/?search=hello la variable "search" = "hello"
+#     #http://localhost:5000/?search=hello
+#     print(search)#hello
     
-    #acces aux paramètres renseignés dans l'URL. 
-    #Dans l'exemple http://localhost:5000/?search=hello la variable "search" = "hello"
-    #http://localhost:5000/?search=hello
-    print(search)#hello
+#     args = request.args#permet d'accéder à tous les arguments dans l'URL
+#     print(args)#ImmutableMultiDict([('search', 'hello')])
     
-    args = request.args#permet d'accéder à tous les arguments dans l'URL
-    print(args)#ImmutableMultiDict([('search', 'hello')])
-    
-    return 'index'
+#     return 'index'
 
 @app.route('/user/<username>')
 def profile(username):
@@ -156,6 +172,59 @@ def upload_file():
         return "Fichier uploadé"
     elif request.method == "GET":
         return render_template("upload.html")
+    
+users = [
+    {
+        "id":1,
+        "username":"johndoe",
+        "theme":"dark",
+        "image":"avatar.png"
+    },
+    {
+        "id":2,
+        "username":"jameswhite",
+        "theme":"light",
+        "image":"avatar.png"
+    },
+    ]
+    
+def get_current_user(id):
+    found_user=None
+    for user in users:
+        if user.get("id") == int(id):
+            found_user = user
+    
+    print(found_user)
+    return found_user
+
+def get_all_users():
+    return users
+
+@app.route("/api/users/<id>")
+def one_user(id):
+    user = get_current_user(id)
+    
+    if user is not None:    
+        return {
+            "username": user.get('username'),
+            "theme": user.get('theme'),
+            "id": user.get('id'),
+            "image": url_for("static", filename="images/"+user.get('image')),
+        }
+    else:
+        abort(404)
+
+@app.route("/api/users")
+def all_users():
+    users = get_all_users()
+    return users
+    #return json.jsonify(users)
+    
+#gère les erreurs 404
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('page_not_found.html'), 404
+
 
 #permet d'afficher directement les données dans la console, au lancement de l'application (utile pour des tests)
 with app.test_request_context():
