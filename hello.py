@@ -9,4 +9,7 @@ def hello_world():
 #Lancer l'application :
 #flask --app hello run
 
+#Lancer l'application avec le mode debug :
+#flask --app hello --debug run
+
 #Consulter l'application http://localhost:5000
