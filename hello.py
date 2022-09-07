@@ -3,6 +3,7 @@ from markupsafe import escape
 from flask import url_for
 from flask import request
 from flask import render_template
+from flask import request
 
 app = Flask(__name__)
 
@@ -40,6 +41,16 @@ def about():
 
 @app.route('/')
 def index():
+    search = request.args.get('search')
+    
+    #acces aux paramètres renseignés dans l'URL. 
+    #Dans l'exemple http://localhost:5000/?search=hello la variable "search" = "hello"
+    #http://localhost:5000/?search=hello
+    print(search)#hello
+    
+    args = request.args#permet d'accéder à tous les arguments dans l'URL
+    print(args)#ImmutableMultiDict([('search', 'hello')])
+    
     return 'index'
 
 @app.route('/user/<username>')
@@ -87,12 +98,35 @@ def do_the_login():
 #     return do_the_login()
 
 #1 route unique pour 2 méthodes HTTP différentes
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        return do_the_login()
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         return do_the_login()
+#     else:
+#         return show_the_login_form()
+
+def valid_login(username,password)->bool:
+    if username == "john@doe.com" and password == "Azerty":
+        return True
     else:
-        return show_the_login_form()
+        return False
+    
+def log_the_user_in():
+    pass
+    
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if valid_login(request.form['username'],
+                       request.form['password']):
+            return log_the_user_in(request.form['username'])
+        else:
+            error = 'Invalid username/password'
+    # the code below is executed if the request method
+    # was GET or the credentials were invalid
+    return render_template('login.html', error=error)
     
 @app.route('/hello/')
 @app.route('/hello/<name>')
