@@ -1,7 +1,10 @@
 # Flask Framework Quickstart
 
-## 01 - A minimal Application
+## 01 - A minimal Application + Debug Mode
 https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application
+
+
+https://flask.palletsprojects.com/en/2.2.x/quickstart/#debug-mode
 
 Application réalisée avec Flask Framework sur la base de la documentation officielle https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application
 
