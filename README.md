@@ -1,5 +1,20 @@
 # Flask Framework Quickstart
 
+Une branche du dépôt est dédiée à chaque sujet :
+
+- 01 - A minimal Application + Debug Mode
+- 02 - HTML Escaping
+- 03 - Routing
+- 04 - URL Building
+- 05 - HTTP Methods
+- 06 - Templates
+- 07 - Accessing Request Data
+- 08 - Redirects and errors
+- 09 - About Responses
+- 10 - API with JSON
+- 11 - Sessions
+- 12 - Message flashing
+
 ## 01 - A minimal Application + Debug Mode
 https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application
 
