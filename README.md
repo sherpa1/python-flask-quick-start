@@ -1,5 +1,8 @@
 # Flask Framework Quickstart
 
+## 10 - APIs with JSON
+https://flask.palletsprojects.com/en/2.2.x/quickstart/#apis-with-json
+
 Application réalisée avec Flask Framework sur la base de la documentation officielle https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application
 
 ## Environnement virtuel Python 
