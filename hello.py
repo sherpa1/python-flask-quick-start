@@ -1,17 +1,24 @@
+from http.client import responses
 from flask import Flask
-from flask import request
 from flask import render_template
-from flask import redirect
-from flask import url_for
-from flask import abort
+from flask import make_response
 
 app = Flask(__name__)
 
 
-@app.route('/unauthorized')
-def render_unauthorized_error():
-    abort(401)
+# @app.errorhandler(404)
+#"""
+#ce code gère les erreurs 404
+#"""
+# def not_found_error(error):
+#     return render_template('404.html'), 404
 
-@app.route('/404')
-def render_404_error():
-    return render_template('404.html')
+@app.errorhandler(404)
+def not_found_error_with_headers(error):
+    """
+    ce code gère les erreurs 404 et ajoute un header http personnalisé
+    """
+    response=make_response(render_template('404.html'),404)
+    response.headers["X-Something"]="This a custom header value"
+    return response
+
