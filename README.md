@@ -1,8 +1,10 @@
 # Flask Framework Quickstart
 
-## 10 - APIs with JSON
+## 12 - Message Flashing + Logging
 
-https://flask.palletsprojects.com/en/2.2.x/quickstart/#apis-with-json
+https://flask.palletsprojects.com/en/2.2.x/quickstart/#message-flashing
+
+https://flask.palletsprojects.com/en/2.2.x/patterns/flashing/
 
 Application réalisée avec Flask Framework sur la base de la documentation officielle https://flask.palletsprojects.com/en/2.2.x/quickstart/#a-minimal-application
 
