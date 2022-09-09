@@ -1,6 +1,6 @@
 # Flask Framework Quickstart
 
-## Templates
+## 06 - Templates
 
 https://flask.palletsprojects.com/en/2.2.x/quickstart/#rendering-templates
 
