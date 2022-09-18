@@ -90,3 +90,14 @@ flask --app hello --debug run
 ``
 
 Le code PIN fourni dans la console Python permet d'exécuter du code directement dans la page du navigateur.
+
+---
+__Alexandre Leroux__
+
+Développeur logiciel (web & mobile)<br/>
+Enseignant / Formateur
+
+Mail : alex@sherpa.one<br/>
+Site : https://sherpa.one<br/>
+Github : @sherpa1<br/>
+Discord : sherpa#3890<br/>
